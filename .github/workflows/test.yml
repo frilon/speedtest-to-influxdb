@@ -16,11 +16,11 @@ jobs:
 
       - name: Start Stack
         run: |
+          pwd
           bash ../main.sh --start-docker-compose
 
       - name: Run tests
         run: |
-          pwd
           bash ../main.sh --run-tests
 
       - name: Stop Stack

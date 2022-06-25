@@ -2,6 +2,11 @@
 
 TRY_MAX=10
 
+echo 'PWD'
+pwd
+echo 'ls -lAh'
+ls -lAh
+
 source ./functions.sh
 
 while (($#)); do

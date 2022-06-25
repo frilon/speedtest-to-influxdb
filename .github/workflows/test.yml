@@ -16,14 +16,12 @@ jobs:
 
       - name: Start Stack
         run: |
-          pwd
-          ls -lAh
-          bash ../main.sh --start-docker-compose
+          bash ./.github/main.sh --start-docker-compose
 
       - name: Run tests
         run: |
-          bash ../main.sh --run-tests
+          bash ./.github/main.sh --run-tests
 
       - name: Stop Stack
         run: |
-          bash ../main.sh --start-docker-compose
+          bash ./.github/main.sh --start-docker-compose

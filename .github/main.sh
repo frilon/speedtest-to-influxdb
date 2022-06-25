@@ -2,12 +2,7 @@
 
 TRY_MAX=10
 
-echo 'PWD'
-pwd
-echo 'ls -lAh'
-ls -lAh
-
-source ./functions.sh
+source ./.github/functions.sh
 
 while (($#)); do
     case "${1}" in

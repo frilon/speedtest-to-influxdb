@@ -18,7 +18,7 @@ services:
       - "8086:8086"
 
   grafana:
-    image: grafana/grafana-oss:8
+    image: grafana/grafana-oss
     container_name: grafana-oss
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}

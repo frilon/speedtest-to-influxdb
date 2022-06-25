@@ -17,6 +17,7 @@ jobs:
       - name: Start Stack
         run: |
           pwd
+          ls -lAh
           bash ../main.sh --start-docker-compose
 
       - name: Run tests

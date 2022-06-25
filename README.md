@@ -9,7 +9,8 @@ This is how I've done, so far.
 <details><summary>Click to read the summary</summary>
 
 1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker-Compose](https://docs.docker.com/compose/install/)
-1. Clone this repository
+1. Clone this repository with the stack branch
+    1. `git clone --branch speedtest-to-influxdb1-stack https://github.com/frilon/speedtest-to-influxdb.git`
 1. Rename or copy `.env-example` as `.env` and update values to fit your needs
 1. Start stack via `docker-compose up -d`
 1. Visit `${GRAFANA_HOST_IP}:3000` and log in using `${GRAFANA_ADMIN_USER}` and `${GRAFANA_ADMIN_PASSWORD}`

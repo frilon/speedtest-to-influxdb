@@ -23,7 +23,7 @@ function startDockerComposeStack() {
 
 function checkInfluxDb() {
     for ((i = 1; i <= TRY_MAX; i++)); do
-        echo -n "${i}/${TRY_MAX} $(date '+%F %T'):: "
+        echo -n "${FUNCNAME[0]} :: ${i}/${TRY_MAX} $(date '+%F %T'):: "
         if curl -sLI --url localhost:8086/ping | grep -q "X-Influxdb-Version:"; then
             echo "SUCCESS"
             break
@@ -40,6 +40,7 @@ function checkInfluxDb() {
 
 function checkGrafanaProvisioning() {
     for ((i = 1; i <= TRY_MAX; i++)); do
+        echo -n "${FUNCNAME[0]} :: ${i}/${TRY_MAX} $(date '+%F %T'):: "
         RESPONSE=$(curl \
             --silent \
             --header 'Content-Type: application/json' \
@@ -62,10 +63,10 @@ function checkGrafanaProvisioning() {
 function stopDockerComposeStack() {
     if docker compose version &>/dev/null; then
         echo "Using 'docker compose' v2"
-        docker compose kill
+        docker compose down
     elif docker-compose version &>/dev/null; then
         echo "Using 'docker-compose' v1"
-        docker-compose kill
+        docker-compose down
     else
         echo "Docker compose seems not to be installed"
     fi

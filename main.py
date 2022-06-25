@@ -1,7 +1,7 @@
 import time
+from multiprocessing import Process
 
 import speedflux
-from multiprocessing import Process
 from speedflux import data
 
 

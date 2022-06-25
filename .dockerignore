@@ -1,4 +1,8 @@
 .git
 Dockerfile
+assets
+grafana
+influxdb
+telegraf
 *~
 README.md

@@ -17,10 +17,10 @@ class Influx:
     def client(self):
         if not self._client:
             self._client = InfluxDBClient(
-                self.config.INFLUX_DB_ADDRESS,
-                self.config.INFLUX_DB_PORT,
-                self.config.INFLUX_DB_USER,
-                self.config.INFLUX_DB_PASSWORD,
+                self.config.INFLUXDB_IP,
+                self.config.INFLUXDB_PORT,
+                self.config.INFLUXDB_USER,
+                self.config.INFLUXDB_USER_PASSWORD,
                 None)
             speedflux.LOG.debug("Client extablished")
         return self._client
@@ -32,12 +32,12 @@ class Influx:
             databases = self.client.get_list_database()
             if len(list(filter(
                     lambda x: x['name'] ==
-                        self.config.INFLUX_DB_DATABASE, databases))) == 0:
+                        self.config.INFLUXDB_DB, databases))) == 0:
                 self.client.create_database(
-                    self.config.INFLUX_DB_DATABASE)  # Create if
+                    self.config.INFLUXDB_DB)  # Create if
             else:
                 # Switch to if does exist.
-                self.client.switch_database(self.config.INFLUX_DB_DATABASE)
+                self.client.switch_database(self.config.INFLUXDB_DB)
             self.initilized = True
         except (ConnectionError, NewConnectionError) as bad_host:
             if self.retries == 3:
@@ -47,8 +47,8 @@ class Influx:
             self.retries += 1
             speedflux.LOG.error(
                 "Connection to influx host was refused. This likely "
-                "means that the DB is down or INFLUX_DB_ADDRESS is "
-                f"incorrect. It's currently '{self.config.INFLUX_DB_ADDRESS}'")
+                "means that the DB is down or INFLUXDB_IP is "
+                f"incorrect. It's currently '{self.config.INFLUXDB_IP}'")
             speedflux.LOG.error("Full Error follows\n")
             speedflux.LOG.error(bad_host)
             speedflux.LOG.error(f"Retry {self.retries}: Initiliazing DB.")
@@ -150,7 +150,7 @@ class Influx:
             speedflux.LOG.error(F"{err}")
 
     def tag_selection(self, data):
-        tags = self.config.INFLUX_DB_TAGS
+        tags = self.config.INFLUXDB_TAGS
         options = {}
 
         # tag_switch takes in _data and attaches CLIoutput to more readable ids

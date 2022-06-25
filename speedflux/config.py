@@ -6,12 +6,12 @@ import re
 
 _CONFIG_DEFAULTS = {
     'NAMESPACE': (str, 'Database', None),
-    'INFLUX_DB_ADDRESS': (str, 'Database', 'influxdb'),
-    'INFLUX_DB_PORT': (int, 'Database', 8086),
-    'INFLUX_DB_USER': (str, 'Database', None),
-    'INFLUX_DB_PASSWORD': (str, 'Database', None),
-    'INFLUX_DB_DATABASE': (str, 'Database', 'speedtests'),
-    'INFLUX_DB_TAGS': (str, 'Database', None),
+    'INFLUXDB_IP': (str, 'Database', 'influxdb'),
+    'INFLUXDB_PORT': (int, 'Database', 8086),
+    'INFLUXDB_USER': (str, 'Database', None),
+    'INFLUXDB_USER_PASSWORD': (str, 'Database', None),
+    'INFLUXDB_DB': (str, 'Database', 'speedtests'),
+    'INFLUXDB_TAGS': (str, 'Database', None),
     'SPEEDTEST_INTERVAL': (int, 'SpeedTest', 180),
     'SPEEDTEST_SERVER_ID': (str, 'SpeedTest', None),
     'PING_TARGETS': (str, 'PingTest', '1.1.1.1, 8.8.8.8'),

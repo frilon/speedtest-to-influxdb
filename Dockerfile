@@ -1,6 +1,6 @@
-FROM python:3.8-slim-buster
-LABEL maintainer="Breadlysm" \
-    description="Original by Aiden Gilmartin. Maintained by Breadlysm"
+FROM python:3.10-slim-bullseye
+LABEL maintainer="frilon" \
+    description="Original by Aiden Gilmartin, forked by Breadlysm. Maintained by frilon"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -9,10 +9,8 @@ RUN apt-get update
 RUN apt-get -q -y install --no-install-recommends apt-utils gnupg1 apt-transport-https dirmngr curl
 
 # Install Speedtest
-RUN curl -s https://install.speedtest.net/app/cli/install.deb.sh --output /opt/install.deb.sh
-RUN bash /opt/install.deb.sh
+RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash
 RUN apt-get update && apt-get -q -y install speedtest
-RUN rm /opt/install.deb.sh
 
 # Clean up
 RUN apt-get -q -y autoremove && apt-get -q -y clean 
@@ -22,6 +20,7 @@ RUN rm -rf /var/lib/apt/lists/*
 ADD . /app
 WORKDIR /app
 COPY requirements.txt requirements.txt
+RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt 
 COPY . .
 

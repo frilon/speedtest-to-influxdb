@@ -4,6 +4,8 @@ TRY_MAX=10
 
 source ./.github/functions.sh
 
+cp .env-example .env
+
 while (($#)); do
     case "${1}" in
     --start-docker-compose | -u)

@@ -12,10 +12,10 @@ function customExit() {
 function startDockerComposeStack() {
     if docker compose version &>/dev/null; then
         echo "Using 'docker compose' v2"
-        docker compose -f ./docker-compose.yml up -d
+        docker compose up -d
     elif docker-compose version &>/dev/null; then
         echo "Using 'docker-compose' v1"
-        docker-compose -f ./docker-compose.yml up -d
+        docker-compose up -d
     else
         echo "Docker compose seems not to be installed"
     fi
@@ -62,10 +62,10 @@ function checkGrafanaProvisioning() {
 function stopDockerComposeStack() {
     if docker compose version &>/dev/null; then
         echo "Using 'docker compose' v2"
-        docker compose -f ./docker-compose.yml kill
+        docker compose kill
     elif docker-compose version &>/dev/null; then
         echo "Using 'docker-compose' v1"
-        docker-compose -f ./docker-compose.yml kill
+        docker-compose kill
     else
         echo "Docker compose seems not to be installed"
     fi

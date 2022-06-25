@@ -1,0 +1,27 @@
+name: Test docker compose
+on:
+  push:
+    # enable compose tests for this branch only
+    branches:
+      - speedtest-to-influxdb1-stack
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Start Stack
+        run: |
+          bash ../main.sh --start-docker-compose
+
+      - name: Run tests
+        run: |
+          bash ../main.sh --run-tests
+
+      - name: Stop Stack
+        run: |
+          bash ../main.sh --start-docker-compose

@@ -20,6 +20,7 @@ jobs:
 
       - name: Run tests
         run: |
+          pwd
           bash ../main.sh --run-tests
 
       - name: Stop Stack

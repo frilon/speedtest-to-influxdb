@@ -28,7 +28,7 @@ function checkInfluxDb() {
             echo "SUCCESS"
             break
         else
-            if [[ $TRY_MAX -eq 10 ]]; then
+            if [[ ${i} -eq 10 ]]; then
                 customExit "CRITICAL" "InfluxDB seems not to be up and running." "255"
             else
                 echo "Waiting for next run in 5 seconds..."
@@ -49,7 +49,7 @@ function checkGrafanaProvisioning() {
             echo "SUCCESS"
             break
         else
-            if [[ $TRY_MAX -eq 10 ]]; then
+            if [[ ${i} -eq 10 ]]; then
                 customExit "CRITICAL" "Grafana Dashboard seems not to be provisioned correctly." "255"
             else
                 echo "Waiting for next run in 5 seconds..."

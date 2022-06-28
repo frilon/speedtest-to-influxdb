@@ -1,3 +1,0 @@
-orgs:
-  - id: 1
-    name: ${GRAFANA_ORG_NAME}

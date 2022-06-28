@@ -21,3 +21,7 @@ jobs:
       - name: Run tests
         run: |
           bash ./.github/main.sh --run-tests
+
+      - name: Run optional post tasks tests
+        run: |
+          bash ./optional_post_tasks.sh --all

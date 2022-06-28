@@ -21,7 +21,3 @@ jobs:
       - name: Run tests
         run: |
           bash ./.github/main.sh --run-tests
-
-      - name: Stop Stack
-        run: |
-          bash ./.github/main.sh --start-docker-compose

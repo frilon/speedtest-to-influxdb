@@ -4,6 +4,7 @@ services:
     image: influxdb:1.8
     container_name: influxdb
     env_file: .env
+    restart: unless-stopped
     volumes:
       - influxdb_data:/var/lib/influxdb
     #  - ./influxdb/conf/influxdb.conf:/etc/influxdb/influxdb.conf:ro
@@ -14,6 +15,7 @@ services:
     image: grafana/grafana-oss
     container_name: grafana-oss
     env_file: .env
+    restart: unless-stopped
     volumes:
       - grafana_data:/var/lib/grafana
       #- ./grafana/conf/grafana.ini:/etc/grafana/grafana.ini:ro

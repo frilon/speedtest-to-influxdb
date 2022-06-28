@@ -11,16 +11,15 @@ function customExit() {
 
 function localDockerCompose() {
     if docker compose version &>/dev/null; then
-        DOCKER_COMPOSE_CMD="docker compose"
+        echo "docker compose"
     elif docker-compose version &>/dev/null; then
-        DOCKER_COMPOSE_CMD="docker-compose"
+        echo "docker-compose"
     else
         customExit "CRITICAL" "Docker Compose seems not to be installed." "255"
     fi
 }
 
 function startDockerComposeStack() {
-    localDockerCompose
     "${DOCKER_COMPOSE_CMD}" up -d || customExit "ERROR" "Could not start docker compose stack." "255"
 }
 
@@ -64,6 +63,5 @@ function checkGrafanaProvisioning() {
 }
 
 function stopDockerComposeStack() {
-    localDockerCompose
     "${DOCKER_COMPOSE_CMD}" down || customExit "ERROR" "Could not shutdown docker compose stack." "255"
 }

@@ -4,7 +4,9 @@ TRY_MAX=10
 
 source ./.github/functions.sh
 
-localDockerCompose
+DOCKER_COMPOSE_CMD=$(localDockerCompose)
+export DOCKER_COMPOSE_CMD
+echo "${DOCKER_COMPOSE_CMD}"
 
 cp .env-example .env
 

@@ -4,6 +4,8 @@ TRY_MAX=10
 
 source ./.github/functions.sh
 
+localDockerCompose
+
 cp .env-example .env
 
 while (($#)); do

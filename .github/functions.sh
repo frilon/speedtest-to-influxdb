@@ -9,16 +9,19 @@ function customExit() {
     exit "${CUSTOM_EXIT_CODE}"
 }
 
-function startDockerComposeStack() {
+function localDockerCompose() {
     if docker compose version &>/dev/null; then
-        echo "Using 'docker compose' v2"
-        docker compose up -d
+        DOCKER_COMPOSE_CMD="docker compose"
     elif docker-compose version &>/dev/null; then
-        echo "Using 'docker-compose' v1"
-        docker-compose up -d
+        DOCKER_COMPOSE_CMD="docker-compose"
     else
         echo "Docker compose seems not to be installed"
+        return 255
     fi
+}
+
+function startDockerComposeStack() {
+    "${DOCKER_COMPOSE_CMD}" up -d
 }
 
 function checkInfluxDb() {
@@ -26,7 +29,7 @@ function checkInfluxDb() {
         echo -n "${FUNCNAME[0]} :: ${i}/${TRY_MAX} $(date '+%F %T'):: "
         if curl -sLI --url localhost:8086/ping | grep -q "X-Influxdb-Version:"; then
             echo "SUCCESS"
-            break
+            return 0
         else
             if [[ ${i} -eq 10 ]]; then
                 customExit "CRITICAL" "InfluxDB seems not to be up and running." "255"
@@ -48,7 +51,7 @@ function checkGrafanaProvisioning() {
             --url 'http://adminuser:adminpassword@localhost:3000/api/search?dashboardIds' | jq -r '.[0].title')
         if [[ "${RESPONSE}" = "SpeedFlux" ]]; then
             echo "SUCCESS"
-            break
+            return 0
         else
             if [[ ${i} -eq 10 ]]; then
                 customExit "CRITICAL" "Grafana Dashboard seems not to be provisioned correctly." "255"
@@ -61,13 +64,5 @@ function checkGrafanaProvisioning() {
 }
 
 function stopDockerComposeStack() {
-    if docker compose version &>/dev/null; then
-        echo "Using 'docker compose' v2"
-        docker compose down
-    elif docker-compose version &>/dev/null; then
-        echo "Using 'docker-compose' v1"
-        docker-compose down
-    else
-        echo "Docker compose seems not to be installed"
-    fi
+    "${DOCKER_COMPOSE_CMD}" down
 }

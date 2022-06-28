@@ -15,13 +15,13 @@ function localDockerCompose() {
     elif docker-compose version &>/dev/null; then
         DOCKER_COMPOSE_CMD="docker-compose"
     else
-        echo "Docker compose seems not to be installed"
-        return 255
+        customExit "CRITICAL" "Docker Compose seems not to be installed." "255"
     fi
 }
 
 function startDockerComposeStack() {
-    "${DOCKER_COMPOSE_CMD}" up -d
+    localDockerCompose
+    "${DOCKER_COMPOSE_CMD}" up -d || customExit "ERROR" "Could not start docker compose stack." "255"
 }
 
 function checkInfluxDb() {
@@ -64,5 +64,6 @@ function checkGrafanaProvisioning() {
 }
 
 function stopDockerComposeStack() {
-    "${DOCKER_COMPOSE_CMD}" down
+    localDockerCompose
+    "${DOCKER_COMPOSE_CMD}" down || customExit "ERROR" "Could not shutdown docker compose stack." "255"
 }

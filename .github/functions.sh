@@ -20,7 +20,13 @@ function localDockerCompose() {
 }
 
 function startDockerComposeStack() {
-    "${DOCKER_COMPOSE_CMD}" up -d || customExit "ERROR" "Could not start docker compose stack." "255"
+    if docker compose version &>/dev/null; then
+        docker compose up -d || customExit "ERROR" "Could not start docker compose stack." "255"
+    elif docker-compose version &>/dev/null; then
+        docker-compose up -d || customExit "ERROR" "Could not start docker compose stack." "255"
+    else
+        customExit "ERROR" "Could not start docker compose stack." "255"
+    fi
 }
 
 function checkInfluxDb() {
@@ -63,5 +69,11 @@ function checkGrafanaProvisioning() {
 }
 
 function stopDockerComposeStack() {
-    "${DOCKER_COMPOSE_CMD}" down || customExit "ERROR" "Could not shutdown docker compose stack." "255"
+    if docker compose version &>/dev/null; then
+        docker compose down || customExit "ERROR" "Could not stop docker compose stack." "255"
+    elif docker-compose version &>/dev/null; then
+        docker-compose down || customExit "ERROR" "Could not stop docker compose stack." "255"
+    else
+        customExit "ERROR" "Could not stop docker compose stack." "255"
+    fi
 }
